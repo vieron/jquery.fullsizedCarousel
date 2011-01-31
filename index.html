@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>jquery.fullsizedCarousel</title>
+	<link rel="stylesheet" href="jquery.fullsizedCarousel.css" type="text/css" charset="utf-8" />
+	
+</head>
+
+<body>
+
+<div id="carousel">
+  <div class="viewport">
+    <ul>
+      <li>
+        <div>
+          <img src="images/1.png" />
+        </div>
+      </li>
+      <li>
+        <div>
+          <img src="images/2.png" />
+        </div>
+      </li>
+      <li>
+        <div>
+          <img src="images/3.png" />
+        </div>
+      </li>
+    </ul>
+  </div><!-- viewport -->
+</div><!-- carousel -->
+
+
+
+
+  
+  <script src="jquery.min.1.5.js" type="text/javascript" charset="utf-8"></script>
+  <script src="jquery.fullsizedCarousel.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			if ($.fn.fullsizedCarousel != undefined) {
+				
+	      $('#carousel').fullsizedCarousel();
+	
+			}
+		})
+	</script>	
+	
+</body>
+</html>

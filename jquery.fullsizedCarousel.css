@@ -1,0 +1,65 @@
+* {
+  margin:0;
+  padding:0;
+}
+
+a{
+  outline:none;
+}
+
+#carousel {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:-2;
+  overflow:hidden;
+}
+
+#carousel .viewport {
+  position:relative;
+  z-index:100;
+}
+
+#carousel .viewport ul {
+  overflow:hidden;
+  position:relative;
+  top:0;
+  left:0;
+  width:99999px;
+}
+
+#carousel .viewport ul li {
+  float:left;
+  overflow:hidden!important;
+}
+
+#carousel .viewport ul li div{
+  position:relative;
+}
+
+.next ,
+.prev {
+  position:absolute;
+  width:200px;
+  background: transparent;
+  top:0;
+  left:0;
+  z-index:-1;
+  text-align:left;
+  text-indent:-99999em;
+  background:  url('images/blank.gif') ;
+}
+
+ .next {
+  right:0;
+  left:auto;
+}
+
+.prev:hover {
+  background: url('images/arrows.png') no-repeat left center;
+}
+
+.next:hover {
+  background: url('images/arrows.png') no-repeat right center;
+} 
+
