@@ -42,7 +42,7 @@
       var ratioW = d.width/opts.element_size['width'];
       var ratioH = d.height/opts.element_size['height'];
       
-      ratio = ratioW < ratioH ? ratioH : ratioW;
+      var ratio = ratioW < ratioH ? ratioH : ratioW;
       
       var width = opts.element_size['width']*ratio;
       var height = opts.element_size['height']*ratio;
