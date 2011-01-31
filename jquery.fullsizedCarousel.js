@@ -8,7 +8,6 @@
 (function($) {
   
   $.fn.fullsizedCarousel = function(options) {
-    $('html').attr('style', 'overflow:hidden;');
     
     // build main options before element iteration
     var opts = $.extend({}, $.fn.fullsizedCarousel.defaults, options),
