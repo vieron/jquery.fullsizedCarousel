@@ -1,13 +1,11 @@
 // 
 //  jquery.fullsizedCarousel.js
 //  FullWindow image carousel
-// 
-//  
+//   
 //  by vieron | http://vieron.net
 //
 
 (function($) {
-  
   
   $.fn.fullsizedCarousel = function(options) {
     $('html').attr('style', 'overflow:hidden;');
@@ -72,16 +70,23 @@
           $prev = $('<a href="#" class="prev">Prev</a>'),
           $next = $('<a href="#" class="next">Next</a>'),
           $collection = $wrap.add($viewport).add($elements).add($img_wrap),
-          $controls = $prev.add($next);
+          $controls = $prev.add($next),
+          didResize = false;
           
           if ($.browser.msie && jQuery.browser.version == "7.0") {
             $collection = $collection.add($('body'));
           }
           
       var goTo = function(n){
-         opts.beforeFilter(n);
-         $elements_wrap.animate({'left' : -(n*($window.width()))+'px'}, opts.speed, 'swing');
-         active_element = n;
+            opts.beforeFilter(n);
+            $elements_wrap.animate({'left' : -(n*($window.width()))+'px'}, opts.speed, 'swing');
+            active_element = n;
+      },
+          resizeHandler = function(){
+            var d = getDimensions($window);
+            $elements_wrap.css({'left' : -(active_element*( d.width ))+'px'});
+            fitToScreen(opts, $img_wrap, $images, $collection, $controls);
+            opts.onResizeWindow(d.height, d.width, $elements_wrap, $collection, $controls );
       };
     
 
@@ -89,19 +94,21 @@
       fitToScreen(opts, $img_wrap, $images, $collection, $controls);
       
       
-      $window.bind('resize', function(){
-        var d = getDimensions($window);
-        $elements_wrap.css({'left' : -(active_element*( d.width ))+'px'});
-        fitToScreen(opts, $img_wrap, $images, $collection, $controls);
-        opts.onResizeWindow(d.height, d.width, $elements_wrap, $collection, $controls );
-      });
       
+      //window resize
+      setInterval(function() {
+          if ( didResize ) {
+              didResize = false;
+              resizeHandler();
+          }
+      }, 250);
+      $window.bind('resize', function() {
+          didResize = true;
+      });
       $window.trigger('resize');
       
-      $(opts.controls_wrapper)
-        .append($next)
-        .append($prev);
-        
+      //append controls
+      $(opts.controls_wrapper).append($controls)
       
       $next.bind('click', function(e){
         goTo(nextSlideHandler(active_element+1, $elements));
@@ -114,7 +121,19 @@
       $wrap.bind('goTo', function(e, n){
          goTo(nextSlideHandler(n, $elements));
       });
-        
+      
+      //key navigation
+      if (opts.key_navigation == true) {
+        $window.bind('keydown', function(e){
+          var k = e.keyCode;
+          if (k == '37') {
+            $prev.trigger('click');
+          }else if (k == '39'){
+            $next.trigger('click');
+          };
+        });
+      };
+      
     });
   }; 
 
@@ -130,6 +149,7 @@
     element_size : {'width' : 1600, 'height' : 1400},
     controls_wrapper : 'body',
     resizable_controls : true,
+    key_navigation : true,
     beforeFilter : function(n){ },
     onResizeWindow : function($h, $w, $elements_wrap, $collection, $controls ) { }
   };
